@@ -2,7 +2,13 @@ from typing import Optional
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
 from etiketle.core.mixins import OnlyAdminsMixin
 from etiketle.teams.forms import TeamForm
@@ -45,7 +51,7 @@ class TeamUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return True
 
 
-class TeamDeleteView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class TeamDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Team
     form_class = TeamForm
     template_name = "teams/team_confirm_delete.html"

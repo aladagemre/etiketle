@@ -2,7 +2,14 @@ from typing import Optional
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.urls import reverse
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
 from etiketle.core.mixins import OnlyAdminsMixin
 from etiketle.datasets.forms import DatasetForm
@@ -39,7 +46,10 @@ class DatasetCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form: DatasetForm) -> HttpResponse:
         form.instance.created_by = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        dataset_object = self.object  # type: Dataset
+        dataset_object.import_file()
+        return response
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -49,10 +59,13 @@ class DatasetCreateView(LoginRequiredMixin, CreateView):
         return context
 
 
-class DatasetDeleteView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class DatasetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Dataset
-    form_class = DatasetForm
     template_name = "datasets/dataset_confirm_delete.html"
 
     def test_func(self) -> Optional[bool]:
         return True
+
+    def get_success_url(self) -> str:
+        project_id = self.get_object().project_id
+        return reverse("projects:detail", kwargs=dict(pk=project_id))

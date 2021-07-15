@@ -1,4 +1,4 @@
-% extends "base.html" %}
+{% extends "base.html" %}
 {% block content %}
 <form action="" method="post">{% csrf_token %}
     <p>Are you sure you want to delete team "{{ object.name }}"?</p>

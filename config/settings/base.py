@@ -77,6 +77,7 @@ LOCAL_APPS = [
     "etiketle.users.apps.UsersConfig",
     "etiketle.core",
     "etiketle.datasets",
+    "etiketle.posts",
     "etiketle.projects",
     "etiketle.teams",
     # Your stuff: custom apps go here
