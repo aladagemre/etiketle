@@ -2,9 +2,10 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from model_utils.models import SoftDeletableModel
 
 
-class User(AbstractUser):
+class User(AbstractUser, SoftDeletableModel):
     """Default user for etiketle."""
 
     #: First and last name do not cover name patterns around the globe

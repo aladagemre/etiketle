@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+  <ul>
+    <li><label>Name:</label><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></li>
+    <li><label>Founder:</label><a href="{{ object.created_by.get_absolute_url }}">{{ object.created_by.username }}</a></li>
+    <li>
+      <label>Members:</label>
+      <ul>
+        {% for member in object.members.all %}
+          <li><a href="{{ member.get_absolute_url }}">{{ member.username }}</a></li>
+        {% endfor %}
+      </ul>
+    </li>
+    <li>
+      <label>Projects:</label>
+      <ul>
+        {% for project in object.projects.all %}
+          <li><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></li>
+        {% endfor %}
+        <li><a href="{% url "projects:add" %}">>> Create New Project</a></li>
+      </ul>
+    </li>
+  </ul>
+{% endblock %}

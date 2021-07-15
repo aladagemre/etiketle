@@ -25,10 +25,34 @@
     <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
     <!-- Your Stuff: Custom user template urls -->
   </div>
-
 </div>
 <!-- End Action buttons -->
 {% endif %}
+<hr/>
+<div class="row">
+  <div class="col-sm-12">
+    <h2>Teams and Projects</h2>
+    {% if request.user.teams %}
+    <ul>
+      {% for team in request.user.teams.all %}
+        <li>
+          <a href="{{ team.get_absolute_url }}">{{ team.name }}</a>
+          {% if team.projects %}
+            <ul>
+              {% for project in team.projects.all %}
+                {% if request.user in project.members.all %}
+                <li><a href="{{ project.get_absolute_url }}">Project: {{ project.name }}</a></li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+  </div>
+</div>
 
 </div>
 {% endblock content %}

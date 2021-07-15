@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %}Team Form{% endblock title %}
+{% block content %}
+  <div class="container tabs">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="block-box user-about">
+          <div class="panel-collapse">
+            <h2>{% blocktrans %}Team Form{% endblocktrans %}</h2>
+            <form class="login" method="POST" action=".">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <button class="primaryAction btn btn-primary" type="submit">{% trans "Save" %}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
