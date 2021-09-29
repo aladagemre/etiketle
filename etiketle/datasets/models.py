@@ -35,3 +35,28 @@ class Dataset(TimeStampedModel):
         if self.source == self.Source.REDDIT_POST:
             importer = RedditPostImporter(self)
             importer.start()
+
+
+class AnnotationConfig(models.Model):
+    name = models.CharField(max_length=100)
+    dataset = models.OneToOneField(
+        Dataset,
+        on_delete=models.CASCADE,
+        related_name="annotation_config",
+        db_index=True,
+    )
+
+    def __str__(self):
+        return self.name
+
+
+class AnnotationOption(models.Model):
+    config = models.ForeignKey(
+        AnnotationConfig,
+        on_delete=models.CASCADE,
+        related_name="options",
+    )
+    text = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.text

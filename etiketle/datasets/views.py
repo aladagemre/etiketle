@@ -2,7 +2,9 @@ from typing import Optional
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.urls import reverse
+from django.views import View
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -14,6 +16,7 @@ from django.views.generic import (
 from etiketle.core.mixins import OnlyAdminsMixin
 from etiketle.datasets.forms import DatasetForm
 from etiketle.datasets.models import Dataset
+from etiketle.posts.models import RedditPost
 from etiketle.projects.models import Project
 
 
@@ -69,3 +72,14 @@ class DatasetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def get_success_url(self) -> str:
         project_id = self.get_object().project_id
         return reverse("projects:detail", kwargs=dict(pk=project_id))
+
+
+class RedditPostListView(LoginRequiredMixin, View):
+    template_name = "posts/reddit/post_list.html"
+
+    def get(self, request, *args, **kwargs):
+        dataset_pk = kwargs["pk"]
+        dataset = Dataset.objects.get(pk=dataset_pk)
+        posts = RedditPost.objects.filter(dataset_id=dataset_pk)
+        data = dict(object_list=posts, dataset=dataset)
+        return render(request, self.template_name, data)

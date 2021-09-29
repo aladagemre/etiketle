@@ -23,6 +23,11 @@ urlpatterns = [
         name="detail",
     ),
     path(
+        route="<int:pk>/posts/",
+        view=views.RedditPostListView.as_view(),
+        name="list-posts",
+    ),
+    path(
         route="<int:pk>/update/",
         view=views.DatasetUpdateView.as_view(),
         name="update",

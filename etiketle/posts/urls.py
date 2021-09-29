@@ -7,23 +7,18 @@ app_name = "posts"
 
 urlpatterns = [
     path(
-        route="",
-        view=views.PostListView.as_view(),
+        route="reddit/",
+        view=views.RedditPostListView.as_view(),
         name="list",
     ),
     path(
-        route="add/",
-        view=views.PostCreateView.as_view(),
-        name="add",
-    ),
-    path(
-        route="<int:pk>/",
-        view=views.PostDetailView.as_view(),
+        route="reddit/<int:pk>/",
+        view=views.RedditPostDetailView.as_view(),
         name="detail",
     ),
     path(
-        route="<int:pk>/update/",
-        view=views.PostUpdateView.as_view(),
+        route="reddit/<int:pk>/update/",
+        view=views.RedditPostUpdateView.as_view(),
         name="update",
     ),
 ]

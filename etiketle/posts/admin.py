@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-# from etiketle.datasets.models import Dataset
-from etiketle.posts.models import RedditPost
+from etiketle.posts.models import RedditPost, RedditPostAnnotation
 
 
 @admin.register(RedditPost)
@@ -26,3 +25,8 @@ class RedditPostAdmin(admin.ModelAdmin):
 
     def get_title(self, obj):
         return obj.data.get("title")
+
+
+@admin.register(RedditPostAnnotation)
+class RedditPostAnnotationAdmin(admin.ModelAdmin):
+    pass
