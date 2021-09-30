@@ -2,6 +2,7 @@
 from django.urls import path
 
 from . import views
+from .views import reddit_post_detail_view
 
 app_name = "posts"
 
@@ -13,7 +14,7 @@ urlpatterns = [
     ),
     path(
         route="reddit/<int:pk>/",
-        view=views.RedditPostDetailView.as_view(),
+        view=reddit_post_detail_view,
         name="detail",
     ),
     path(

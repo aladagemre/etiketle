@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 {% block content %}
   <div class="row">
     <div class="col-8">
@@ -12,19 +13,16 @@
     <a href="#" class="btn btn-success">Start Labeling</a>
     </div>
     <div class="col-4">
-      <h4>Labeling</h4>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-        <label class="form-check-label" for="defaultCheck1">
-          Default checkbox
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" disabled>
-        <label class="form-check-label" for="defaultCheck2">
-          Disabled checkbox
-        </label>
-      </div>
+      <div class="block-box user-about">
+          <div class="panel-collapse">
+            <h4>Labeling</h4>
+            <form class="login" method="POST" action="." enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <button class="primaryAction btn btn-primary" type="submit">Save</button>
+            </form>
+          </div>
+        </div>
     </div>
 
   </div>
