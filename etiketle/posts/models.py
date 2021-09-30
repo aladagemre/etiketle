@@ -48,6 +48,10 @@ class RedditPostAnnotation(TimeStampedModel):
     options = models.ManyToManyField(
         "datasets.AnnotationOption",
         related_name="annotations",
+        null=True,
     )
-    notes = models.TextField()
-    confidence = models.IntegerField(choices=Confidence.choices)
+    notes = models.TextField(blank=True)
+    confidence = models.IntegerField(choices=Confidence.choices, blank=True, null=True)
+
+    class Meta:
+        unique_together = [["user", "post"]]
