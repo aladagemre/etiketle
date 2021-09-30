@@ -70,8 +70,8 @@ class DatasetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return True
 
     def get_success_url(self) -> str:
-        project_id = self.get_object().project_id
-        return reverse("projects:detail", kwargs=dict(pk=project_id))
+        dataset = self.get_object()  # type: Dataset
+        return reverse("projects:detail", kwargs=dict(pk=dataset.project_id))
 
 
 class RedditPostListView(LoginRequiredMixin, View):
