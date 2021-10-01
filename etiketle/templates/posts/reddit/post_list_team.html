@@ -1,19 +1,16 @@
 {% extends "base.html" %}
-
+{% load annotations %}
 {% block content %}
   <h2>Posts in Dataset {{dataset}}</h2>
   <hr/>
-  <p>
-  <a href="{{ dataset.file.url }}" class="btn btn-success">Download Original (CSV)</a>
-  <a href='{% url "datasets:export-posts" dataset.pk %}' class="btn btn-success">Export Posts (CSV)</a>
-  <a href="{% url "datasets:export-annotations" dataset.pk %}" class="btn btn-success">Export Annotations (JSON)</a>
-  </p>
   <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Status</th>
       <th scope="col">Reddit ID</th>
+      {% for user in dataset.project.members.all %}
+        <th scope="col">{{ user.username }}</th>
+      {% endfor %}
       <th scope="col">Title</th>
     </tr>
   </thead>
@@ -21,8 +18,8 @@
   {% for object in object_list %}
     <tr>
       <th scope="row">{{ object.pk }}</th>
-      <td>{% if object.pk in my_annotations %}✅{% endif %}</td>
       <td>{{ object.data.id }}</td>
+      <td>YES</td>
       <td><a href="{{ object.get_absolute_url }}">{{ object.data.title }}</a></td>
     </tr>
   {% endfor %}

@@ -1,7 +1,9 @@
+from collections import defaultdict
 from typing import Optional
 
+import pandas as pd
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
@@ -16,7 +18,8 @@ from django.views.generic import (
 from etiketle.core.mixins import OnlyAdminsMixin
 from etiketle.datasets.forms import DatasetForm
 from etiketle.datasets.models import Dataset
-from etiketle.posts.models import RedditPost, RedditPostAnnotation
+from etiketle.datasets.serializers import RedditPostAnnotationSerializer
+from etiketle.posts.models import Confidence, RedditPost, RedditPostAnnotation
 from etiketle.projects.models import Project
 
 
@@ -86,3 +89,109 @@ class RedditPostListView(LoginRequiredMixin, View):
         ).values_list("post_id", flat=True)
         data = dict(object_list=posts, dataset=dataset, my_annotations=my_annotations)
         return render(request, self.template_name, data)
+
+
+class RedditPostListTeamView(LoginRequiredMixin, View):
+    template_name = "posts/reddit/post_list_team.html"
+
+    def get(self, request, *args, **kwargs):
+        dataset_pk = kwargs["pk"]
+        dataset = Dataset.objects.get(pk=dataset_pk)
+        posts = RedditPost.objects.filter(dataset_id=dataset.pk)
+        team_members = dataset.project.members.all()
+
+        team_annotations = dict(
+            [
+                (
+                    team_member.pk,
+                    [
+                        an.post_id
+                        for an in RedditPostAnnotation.objects.filter(
+                            user=team_member, post__in=posts
+                        )
+                    ],
+                )
+                for team_member in team_members
+            ]
+        )
+        # {1: [4889, 4873, 4875, 4867, 4868, 4869]}
+        annotations_dict = defaultdict(list)
+
+        for user_id, post_ids in team_annotations.items():
+            for post_id in post_ids:
+                annotations_dict[post_id] += [user_id]
+
+        data = dict(
+            object_list=posts, dataset=dataset, annotations_dict=annotations_dict
+        )
+        return render(request, self.template_name, data)
+
+
+def _get_dataset_as_df(pk):
+    dataset = Dataset.objects.get(pk=pk)
+    data = [post.data for post in dataset.posts.all()]
+    df = pd.DataFrame.from_records(data)
+    df = df[[x for x in df.columns if len(x) >= 1]].set_index("id")
+
+    cols = list(df.columns.values)
+    first_cols = [
+        "created_utc",
+        "subreddit",
+        "author",
+        "url",
+        "title",
+        "selftext",
+        "num_comments",
+        "score",
+        "ups",
+        "downs",
+        "domain",
+    ]
+    for col in first_cols:
+        cols.remove(col)
+    for i, col in enumerate(first_cols):
+        cols.insert(i, col)
+    df = df[cols]
+    return df
+
+
+def export_posts(request, pk):
+    df = _get_dataset_as_df(pk)
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = f'attachment; filename="dataset{pk}.csv"'
+    df.to_csv(path_or_buf=response)  # with other applicable parameters
+    return response
+
+
+def export_annotations(request, pk):
+    """
+    Exports annotations for a dataset as json
+    :param request:
+    :param pk:
+    :return: json response containing annotations and config
+    """
+    dataset = Dataset.objects.get(pk=pk)
+    annotations = RedditPostAnnotation.objects.filter(post__in=dataset.posts.all())
+    annotation_dict = defaultdict(list)
+    for annotation in annotations:
+        reddit_id = annotation.post.data["id"]  # type: str
+        annotation_dict[reddit_id] += [RedditPostAnnotationSerializer(annotation).data]
+
+    options_dict = dict(
+        [(option.pk, option.text) for option in dataset.annotation_config.options.all()]
+    )
+    confidence_dict = dict(Confidence.choices)
+    result = {
+        "dataset_id": dataset.pk,
+        "options": options_dict,
+        "confidence": confidence_dict,
+        "annotations": annotation_dict,
+    }
+    if request.GET.get("inline"):
+        return JsonResponse(result)
+
+    response = JsonResponse(result, content_type="text/json")
+    response[
+        "Content-Disposition"
+    ] = f'attachment; filename="dataset{pk}-annotations.json"'
+    return response

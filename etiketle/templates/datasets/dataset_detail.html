@@ -1,11 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
   <h2>{{ object.name }}</h2>
-  <ul>
-    <li><label>Team:</label><a href="{{ object.project.team.get_absolute_url }}">{{ object.project.team.name }}</a></li>
-    <li><label>Project:</label><a href="{{ object.project.get_absolute_url }}">{{ object.project.name }}</a></li>
-    <li><label>File:</label><a href="{{ object.file.url }}">{{ object.file.url }}</a></li>
-    <li><label>Created By:</label><a href="{{ object.created_by.get_absolute_url }}">{{ object.created_by.username }}</a></li>
-  </ul>
-  <a href="#" class="btn btn-success">Start Labeling</a>
+  <table class="table">
+  <tbody>
+    <tr>
+      <th>Team</th>
+      <td><a href="{{ object.project.team.get_absolute_url }}">{{ object.project.team.name }}</a></td>
+    </tr>
+    <tr>
+      <th>Project</th>
+      <td><a href="{{ object.project.get_absolute_url }}">{{ object.project.name }}</a></td>
+    </tr>
+    <tr>
+      <th>Uploaded By</th>
+      <td><a href="{{ object.created_by.get_absolute_url }}">{{ object.created_by.username }}</a></td>
+    </tr>
+
+  </tbody>
+  </table>
+  <a href="{% url 'datasets:list-posts' object.pk %}" class="btn btn-success">Display Posts</a>
+  <a href="{{ object.file.url }}" class="btn btn-success">Download Original (CSV)</a>
+  <a href='{% url "datasets:export-posts" object.pk %}' class="btn btn-success">Export Posts (CSV)</a>
+  <a href="{% url "datasets:export-annotations" object.pk %}" class="btn btn-success">Export Annotations (JSON)</a>
 {% endblock %}

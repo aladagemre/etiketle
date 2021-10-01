@@ -78,3 +78,6 @@ class RedditPostAnnotation(TimeStampedModel):
 
     class Meta:
         unique_together = [["user", "post"]]
+
+    def __str__(self):
+        return f"{self.user.username} on Redit Post {self.post.pk}"

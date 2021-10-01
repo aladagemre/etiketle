@@ -28,6 +28,21 @@ urlpatterns = [
         name="list-posts",
     ),
     path(
+        route="<int:pk>/export/posts",
+        view=views.export_posts,
+        name="export-posts",
+    ),
+    path(
+        route="<int:pk>/export/annotations",
+        view=views.export_annotations,
+        name="export-annotations",
+    ),
+    path(
+        route="<int:pk>/posts/team/",
+        view=views.RedditPostListTeamView.as_view(),
+        name="list-posts-team",
+    ),
+    path(
         route="<int:pk>/update/",
         view=views.DatasetUpdateView.as_view(),
         name="update",

@@ -2,7 +2,8 @@
 {% load crispy_forms_filters %}
 {% block content %}
   <div class="row">
-    <div class="col-8">
+    <div class="col-7">
+    <a href="{% url "datasets:list-posts" object.dataset_id %}" class="btn"><< Back to Post List</a>
     <h2>{{ object.data.title }}</h2>
     <span><small><a href="{{ object.url }}">{{ object.url }}</a></small></span>
     <hr/>
@@ -17,7 +18,7 @@
         <a href="{{ object.next }}" class="btn btn-success">Next >></a>
       {% endif %}
     </div>
-    <div class="col-4">
+    <div class="col-5">
       <div class="block-box user-about">
           <div class="panel-collapse">
             <h4>Labeling</h4>
