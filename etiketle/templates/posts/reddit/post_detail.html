@@ -10,7 +10,12 @@
       {{ object.data.selftext }}
     </div>
       <hr/>
-    <a href="#" class="btn btn-success">Start Labeling</a>
+      {% if object.previous %}
+        <a href="{{ object.previous }}" class="btn"><< Prev</a>
+      {% endif %}
+      {% if object.next %}
+        <a href="{{ object.next }}" class="btn btn-success">Next >></a>
+      {% endif %}
     </div>
     <div class="col-4">
       <div class="block-box user-about">
