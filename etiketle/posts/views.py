@@ -2,7 +2,8 @@ from typing import Optional
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.cache import cache
-from django.shortcuts import get_object_or_404, redirect, render
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views.generic import DeleteView, DetailView, ListView, UpdateView
 from werkzeug.exceptions import BadRequest
@@ -68,9 +69,9 @@ def reddit_post_detail_view(request, pk):
             annotation = form.save(commit=False)
             annotation.post = post
             annotation.user = request.user
-            annotation.options.set(form.cleaned_data["options"])
             annotation.save()
-            return redirect("posts:detail", pk=post.pk)
+            annotation.options.set(form.cleaned_data["options"])
+            return HttpResponseRedirect(post.next())
         else:
             data = dict(object=post, form=form)
             return render(request, template_name, data)
