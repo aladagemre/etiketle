@@ -1,9 +1,27 @@
 {% extends "base.html" %}
+
 {% block content %}
   <h2>Posts in Dataset {{dataset}}</h2>
-  <ul>
+  <hr/>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Status</th>
+      <th scope="col">Reddit ID</th>
+      <th scope="col">Title</th>
+    </tr>
+  </thead>
+  <tbody>
   {% for object in object_list %}
-    <li><a href="{{ object.get_absolute_url }}">{{ object.data.title }}</a></li>
+    <tr>
+      <th scope="row">{{ object.pk }}</th>
+      <td>{% if object.pk in my_annotations %}✅{% endif %}</td>
+      <td>{{ object.data.id }}</td>
+      <td><a href="{{ object.get_absolute_url }}">{{ object.data.title }}</a></td>
+    </tr>
   {% endfor %}
-  </ul>
+  </tbody>
+</table>
+
 {% endblock %}

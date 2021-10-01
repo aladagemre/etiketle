@@ -16,7 +16,7 @@ from django.views.generic import (
 from etiketle.core.mixins import OnlyAdminsMixin
 from etiketle.datasets.forms import DatasetForm
 from etiketle.datasets.models import Dataset
-from etiketle.posts.models import RedditPost
+from etiketle.posts.models import RedditPost, RedditPostAnnotation
 from etiketle.projects.models import Project
 
 
@@ -81,5 +81,8 @@ class RedditPostListView(LoginRequiredMixin, View):
         dataset_pk = kwargs["pk"]
         dataset = Dataset.objects.get(pk=dataset_pk)
         posts = RedditPost.objects.filter(dataset_id=dataset_pk)
-        data = dict(object_list=posts, dataset=dataset)
+        my_annotations = RedditPostAnnotation.objects.filter(
+            user=request.user
+        ).values_list("post_id", flat=True)
+        data = dict(object_list=posts, dataset=dataset, my_annotations=my_annotations)
         return render(request, self.template_name, data)
