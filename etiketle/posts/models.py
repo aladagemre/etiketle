@@ -83,7 +83,6 @@ class RedditPostAnnotation(TimeStampedModel):
     options = models.ManyToManyField(
         "projects.AnnotationOption",
         related_name="annotations",
-        null=True,
     )
     notes = models.TextField(blank=True)
     confidence = models.IntegerField(choices=Confidence.choices, blank=True, null=True)
