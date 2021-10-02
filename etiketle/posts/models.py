@@ -81,7 +81,7 @@ class RedditPostAnnotation(TimeStampedModel):
         related_name="annotations",
     )
     options = models.ManyToManyField(
-        "datasets.AnnotationOption",
+        "projects.AnnotationOption",
         related_name="annotations",
         null=True,
     )

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
 
-from etiketle.datasets.models import AnnotationOption
 from etiketle.posts.models import RedditPost, RedditPostAnnotation
+from etiketle.projects.models import AnnotationOption
 
 
 class RedditPostForm(forms.ModelForm):

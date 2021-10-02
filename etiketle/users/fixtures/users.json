@@ -1,0 +1,74 @@
+[
+{
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+        "password": "argon2$argon2i$v=19$m=512,t=2,p=2$b2NmbmlqR1NJbkRE$+aptQpBG2WAXatH1SaqXGQ",
+        "last_login": "2021-10-02T17:19:03Z",
+        "is_superuser": true,
+        "username": "emre",
+        "email": "aladagemre@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2021-10-02T16:48:43Z",
+        "is_removed": false,
+        "name": "Emre Aladağ",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+        "password": "argon2$argon2i$v=19$m=512,t=2,p=2$S1AxNXdVVnRuVHZU$8F9BBOCPobPdG7LPyBxAnA",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "berfu",
+        "email": "nbakbas@yeditepe.edu.tr",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-10-02T19:45:37Z",
+        "is_removed": false,
+        "name": "Naz Berfu Akbaş",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+        "password": "argon2$argon2i$v=19$m=512,t=2,p=2$RldTQjl0Rm1BdEF2$mXtt+S1SjhbUXw/yrJNPcA",
+        "last_login": "2021-10-02T19:47:43.927Z",
+        "is_superuser": false,
+        "username": "oguzhan",
+        "email": "ozahmacioglu@yeditepe.edu.tr",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-10-02T19:47:05Z",
+        "is_removed": false,
+        "name": "Oğuzhan Zahmacıoğlu",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 4,
+    "fields": {
+        "password": "argon2$argon2i$v=19$m=512,t=2,p=2$SmFzbHVKcEhha0Nv$k3WEhDouthq/mLoawuiKVg",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "haluk",
+        "email": "bingol@boun.edu.tr",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-10-02T19:53:29Z",
+        "is_removed": false,
+        "name": "Haluk Bingöl",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

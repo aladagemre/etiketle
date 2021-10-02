@@ -22,3 +22,27 @@ class Project(TimeStampedModel):
 
     def get_absolute_url(self):
         return reverse("projects:detail", kwargs=dict(pk=self.id))
+
+
+class AnnotationConfig(models.Model):
+    name = models.CharField(max_length=100)
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        related_name="annotation_configs",
+    )
+
+    def __str__(self):
+        return self.name
+
+
+class AnnotationOption(models.Model):
+    config = models.ForeignKey(
+        AnnotationConfig,
+        on_delete=models.CASCADE,
+        related_name="options",
+    )
+    text = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.text

@@ -1,0 +1,42 @@
+[
+{
+    "model": "account.emailaddress",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "email": "aladagemre@gmail.com",
+        "verified": true,
+        "primary": true
+    }
+},
+{
+    "model": "account.emailaddress",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "email": "nbakbas@yeditepe.edu.tr",
+        "verified": true,
+        "primary": true
+    }
+},
+{
+    "model": "account.emailaddress",
+    "pk": 3,
+    "fields": {
+        "user": 3,
+        "email": "ozahmacioglu@yeditepe.edu.tr",
+        "verified": true,
+        "primary": true
+    }
+},
+{
+    "model": "account.emailaddress",
+    "pk": 4,
+    "fields": {
+        "user": 4,
+        "email": "bingol@boun.edu.tr",
+        "verified": true,
+        "primary": true
+    }
+}
+]
