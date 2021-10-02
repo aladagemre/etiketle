@@ -83,7 +83,7 @@ class RedditPostListView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         dataset_pk = kwargs["pk"]
         dataset = Dataset.objects.get(pk=dataset_pk)
-        posts = RedditPost.objects.filter(dataset_id=dataset_pk)
+        posts = RedditPost.objects.filter(dataset_id=dataset_pk).order_by("id")
         my_annotations = RedditPostAnnotation.objects.filter(
             user=request.user
         ).values_list("post_id", flat=True)

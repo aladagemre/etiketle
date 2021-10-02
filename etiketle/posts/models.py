@@ -35,8 +35,14 @@ class RedditPost(models.Model):
             )
             cache.set(first_index_key, first_index, 60 * 60)
         if self.pk > first_index:
-            return reverse("posts:detail", kwargs=dict(pk=self.pk - 1))
-        return "#"
+            previous_id = (
+                RedditPost.objects.filter(id__lt=self.pk)
+                .order_by("id")
+                .values_list("id", flat=True)
+                .last()
+            )
+            return reverse("posts:detail", kwargs=dict(pk=previous_id))
+        return None
 
     def next(self):
         last_index_key = f"dataset:{self.dataset_id}:last_index"
@@ -45,8 +51,14 @@ class RedditPost(models.Model):
             last_index = RedditPost.objects.filter(dataset_id=self.dataset_id).last().pk
             cache.set(last_index_key, last_index, 60 * 60)
         if self.pk < last_index - 1:
-            return reverse("posts:detail", kwargs=dict(pk=self.pk + 1))
-        return "#"
+            next_id = (
+                RedditPost.objects.filter(id__gt=self.pk)
+                .order_by("id")
+                .values_list("id", flat=True)
+                .first()
+            )
+            return reverse("posts:detail", kwargs=dict(pk=next_id))
+        return None
 
 
 class Confidence(models.IntegerChoices):
