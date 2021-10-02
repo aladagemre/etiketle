@@ -2,11 +2,10 @@ from typing import Optional
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.cache import cache
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views.generic import DeleteView, DetailView, ListView, UpdateView
-from werkzeug.exceptions import BadRequest
 
 from etiketle.core.mixins import OnlyAdminsMixin
 from etiketle.datasets.models import Dataset
@@ -76,7 +75,7 @@ def reddit_post_detail_view(request, pk):
             data = dict(object=post, form=form)
             return render(request, template_name, data)
     else:
-        raise BadRequest("Invalid request type. Valid options: GET, PUT")
+        raise HttpResponseBadRequest("Invalid request type. Valid options: GET, PUT")
 
 
 class RedditPostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
