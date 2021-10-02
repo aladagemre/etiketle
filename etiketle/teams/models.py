@@ -9,10 +9,10 @@ class Team(TimeStampedModel):
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
-        related_name="teams",
+        related_name="founded_teams",
         null=True,
     )
-    members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="members")
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="teams")
 
     def get_absolute_url(self):
         return reverse("teams:detail", kwargs=dict(pk=self.id))
