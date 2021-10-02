@@ -1,0 +1,19 @@
+[
+{
+    "model": "projects.project",
+    "pk": 1,
+    "fields": {
+        "created": "2021-10-02T22:00:07.974Z",
+        "modified": "2021-10-02T22:04:32.900Z",
+        "name": "Narcissism Prediction",
+        "created_by": 1,
+        "team": 1,
+        "members": [
+            1,
+            2,
+            3,
+            4
+        ]
+    }
+}
+]

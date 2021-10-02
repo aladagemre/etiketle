@@ -1,0 +1,10 @@
+[
+{
+    "model": "projects.annotationconfig",
+    "pk": 1,
+    "fields": {
+        "name": "Narcissism Multiple Choice",
+        "project": 1
+    }
+}
+]

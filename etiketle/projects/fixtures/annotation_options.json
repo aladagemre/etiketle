@@ -1,0 +1,74 @@
+[
+{
+    "model": "projects.annotationoption",
+    "pk": 1,
+    "fields": {
+        "config": 1,
+        "text": "Normal Talk (Non-narcissistic)"
+    }
+},
+{
+    "model": "projects.annotationoption",
+    "pk": 2,
+    "fields": {
+        "config": 1,
+        "text": "The post contains narcissistic traits / symptoms"
+    }
+},
+{
+    "model": "projects.annotationoption",
+    "pk": 3,
+    "fields": {
+        "config": 1,
+        "text": "The author is asking whether the mentioned person has narcissistic tendencies."
+    }
+},
+{
+    "model": "projects.annotationoption",
+    "pk": 4,
+    "fields": {
+        "config": 1,
+        "text": "The author is talking about a potentially narcissistic person."
+    }
+},
+{
+    "model": "projects.annotationoption",
+    "pk": 5,
+    "fields": {
+        "config": 1,
+        "text": "The author is talking about Narcissism"
+    }
+},
+{
+    "model": "projects.annotationoption",
+    "pk": 6,
+    "fields": {
+        "config": 1,
+        "text": "The author seems to have narcissistic traits but does not express in the post."
+    }
+},
+{
+    "model": "projects.annotationoption",
+    "pk": 7,
+    "fields": {
+        "config": 1,
+        "text": "The author expresses Narcissistic Behavior in this post"
+    }
+},
+{
+    "model": "projects.annotationoption",
+    "pk": 8,
+    "fields": {
+        "config": 1,
+        "text": "The author claims to be a narcissist."
+    }
+},
+{
+    "model": "projects.annotationoption",
+    "pk": 9,
+    "fields": {
+        "config": 1,
+        "text": "The author is diagnosed as NPD"
+    }
+}
+]
