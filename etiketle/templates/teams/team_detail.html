@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block content %}
   <ul>
-    <li><label>Name:</label><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></li>
-    <li><label>Founder:</label><a href="{{ object.created_by.get_absolute_url }}">{{ object.created_by.username }}</a></li>
+    <li><label>{% trans "Name" %}: </label><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></li>
+    <li><label>{% trans "Founder" %}: </label><a href="{{ object.created_by.get_absolute_url }}">{{ object.created_by.username }}</a></li>
     <li>
-      <label>Members:</label>
+      <label>{% trans "Members" %}: </label>
       <ul>
         {% for member in object.members.all %}
           <li><a href="{{ member.get_absolute_url }}">{{ member.username }}</a></li>
@@ -12,12 +13,12 @@
       </ul>
     </li>
     <li>
-      <label>Projects:</label>
+      <label>{% trans "Projects" %}:</label>
       <ul>
         {% for project in object.projects.all %}
           <li><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></li>
         {% endfor %}
-        <li><a href="{% url "projects:add" %}">>> Create New Project</a></li>
+        <li><a href="{% url "projects:add" %}">>> {% blocktrans %}Create New Project{% endblocktrans %}</a></li>
       </ul>
     </li>
   </ul>

@@ -1,31 +1,32 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load crispy_forms_filters %}
 {% block content %}
   <div class="row">
     <div class="col-7">
-    <a href="{% url "datasets:list-posts" object.dataset_id %}" class="btn"><< Back to Post List</a>
+    <a href="{% url "datasets:list-posts" object.dataset_id %}" class="btn"><< {% blocktrans %}Back to Post List{% endblocktrans %}</a>
     <h2>{{ object.data.title }}</h2>
-    <span><small><a href="{{ object.url }}">{{ object.url }}</a></small></span>
+    <span><small><a href="{{ object.url }}">{% blocktrans %}Source Link{% endblocktrans %}</a></small></span>
     <hr/>
     <div>
       {{ object.data.selftext }}
     </div>
       <hr/>
       {% if object.previous %}
-        <a href="{{ object.previous }}" class="btn"><< Prev</a>
+        <a href="{{ object.previous }}" class="btn"><< {% trans "Prev" %}</a>
       {% endif %}
       {% if object.next %}
-        <a href="{{ object.next }}" class="btn btn-success">Next >></a>
+        <a href="{{ object.next }}" class="btn btn-success">{% trans "Next" %} >></a>
       {% endif %}
     </div>
     <div class="col-5">
       <div class="block-box user-about">
           <div class="panel-collapse">
-            <h4>Labeling</h4>
+            <h4>{% trans "Labeling" %}</h4>
             <form class="login" method="POST" action="." enctype="multipart/form-data">
               {% csrf_token %}
               {{ form|crispy }}
-              <button class="primaryAction btn btn-primary" type="submit">Save</button>
+              <button class="primaryAction btn btn-primary" type="submit">{% trans "Save" %}</button>
             </form>
           </div>
         </div>

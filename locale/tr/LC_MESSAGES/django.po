@@ -7,16 +7,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-14 17:29+0300\n"
-"PO-Revision-Date: 2021-07-14 17:32+0300\n"
+"POT-Creation-Date: 2021-10-03 02:12+0300\n"
+"PO-Revision-Date: 2021-10-03 02:13+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Last-Translator: \n"
-"Language-Team: \n"
 "X-Generator: Poedit 3.0\n"
+
+#: etiketle/datasets/models.py:13
+msgid "Reddit Post"
+msgstr "Reddit Postu"
 
 #: etiketle/templates/account/account_inactive.html:5
 #: etiketle/templates/account/account_inactive.html:8
@@ -134,7 +138,7 @@ msgstr ""
 
 #: etiketle/templates/account/login.html:26
 msgid "or"
-msgstr ""
+msgstr "ya da "
 
 #: etiketle/templates/account/login.html:33
 #, python-format
@@ -303,9 +307,156 @@ msgstr ""
 "<strong>Not:</strong> e-posta adresinizi hala <a "
 "href=“%(email_url)s”>değiştirebilirsiniz</a>."
 
+#: etiketle/templates/base.html:56
+msgid "Home"
+msgstr "Anasayfa"
+
+#: etiketle/templates/base.html:59
+msgid "About"
+msgstr "Hakkında"
+
 #: etiketle/templates/base.html:64
 msgid "My Profile"
 msgstr "Profilim"
+
+#: etiketle/templates/datasets/dataset_detail.html:8
+#: etiketle/templates/projects/project_detail.html:5
+msgid "Team"
+msgstr "Takım"
+
+#: etiketle/templates/datasets/dataset_detail.html:12
+msgid "Project"
+msgstr "Proje"
+
+#: etiketle/templates/datasets/dataset_detail.html:16
+msgid "Uploaded By"
+msgstr "Yükleyen"
+
+#: etiketle/templates/datasets/dataset_detail.html:22
+msgid "Display Posts"
+msgstr "Yazıları Görüntüle"
+
+#: etiketle/templates/datasets/dataset_detail.html:23
+#: etiketle/templates/posts/reddit/post_list.html:8
+msgid "Download Original (CSV)"
+msgstr "Orijinali İndir (CSV)"
+
+#: etiketle/templates/datasets/dataset_detail.html:24
+#: etiketle/templates/posts/reddit/post_list.html:9
+msgid "Export Posts (CSV)"
+msgstr "Yazıları Dışa Aktar (CSV)"
+
+#: etiketle/templates/datasets/dataset_detail.html:25
+#: etiketle/templates/posts/reddit/post_list.html:10
+msgid "Export Annotations (JSON)"
+msgstr "Etiketleri Dışa Aktar (JSON)"
+
+#: etiketle/templates/datasets/dataset_form.html:14
+msgid "Dataset Form"
+msgstr "Veriseti Formu"
+
+#: etiketle/templates/datasets/dataset_form.html:18
+#: etiketle/templates/posts/reddit/post_detail.html:29
+#: etiketle/templates/posts/reddit/post_form.html:18
+#: etiketle/templates/projects/project_form.html:18
+#: etiketle/templates/teams/team_form.html:18
+msgid "Save"
+msgstr "Kaydet"
+
+#: etiketle/templates/posts/reddit/post_detail.html:7
+msgid "Back to Post List"
+msgstr "Yazı Listesine Geri Dön"
+
+#: etiketle/templates/posts/reddit/post_detail.html:9
+msgid "Source Link"
+msgstr "Kaynak Bağlantısı"
+
+#: etiketle/templates/posts/reddit/post_detail.html:16
+msgid "Prev"
+msgstr "Önceki"
+
+#: etiketle/templates/posts/reddit/post_detail.html:19
+msgid "Next"
+msgstr "Sonraki"
+
+#: etiketle/templates/posts/reddit/post_detail.html:25
+msgid "Labeling"
+msgstr "Etiketleme"
+
+#: etiketle/templates/posts/reddit/post_form.html:14
+msgid "Reddit Post Form"
+msgstr "Reddit Post Formu"
+
+#: etiketle/templates/posts/reddit/post_list.html:5
+#, python-format
+msgid "Posts in Dataset %(dataset)s"
+msgstr "%(dataset)s verisetindeki yazılar"
+
+#: etiketle/templates/posts/reddit/post_list.html:16
+msgid "Status"
+msgstr "Durum"
+
+#: etiketle/templates/posts/reddit/post_list.html:17
+msgid "Reddit ID"
+msgstr "Reddit ID"
+
+#: etiketle/templates/posts/reddit/post_list.html:18
+msgid "Title"
+msgstr "Başlık"
+
+#: etiketle/templates/projects/project_detail.html:6
+#: etiketle/templates/teams/team_detail.html:5
+msgid "Name"
+msgstr "İsim"
+
+#: etiketle/templates/projects/project_detail.html:7
+msgid "Created By"
+msgstr "Oluşturan"
+
+#: etiketle/templates/projects/project_detail.html:8
+#: etiketle/templates/teams/team_detail.html:8
+msgid "Members"
+msgstr "Üyeler"
+
+#: etiketle/templates/projects/project_detail.html:15
+msgid "Datasets"
+msgstr "Verisetleri"
+
+#: etiketle/templates/projects/project_detail.html:18
+msgid "See Posts"
+msgstr "Yazıları Gör"
+
+#: etiketle/templates/projects/project_form.html:14
+msgid "Project Form"
+msgstr "Proje Formu"
+
+#: etiketle/templates/teams/team_detail.html:6
+msgid "Founder"
+msgstr "Kurucu"
+
+#: etiketle/templates/teams/team_detail.html:16
+msgid "Projects"
+msgstr "Projeler"
+
+#: etiketle/templates/teams/team_detail.html:21
+msgid "Create New Project"
+msgstr "Yeni Proje Oluştur"
+
+#: etiketle/templates/teams/team_form.html:14
+msgid "Team Form"
+msgstr "Takım Formu"
+
+#: etiketle/templates/users/user_detail.html:25
+msgid "My Info"
+msgstr "Bilgilerim"
+
+#: etiketle/templates/users/user_detail.html:26
+msgid "E-Mail"
+msgstr "E-Posta"
+
+#: etiketle/templates/users/user_detail.html:35
+msgid "Teams and Projects"
+msgstr "Takımlar ve Projeler"
 
 #: etiketle/users/admin.py:18
 msgid "Personal info"
@@ -327,7 +478,7 @@ msgstr "Kullanıcılar"
 msgid "This username has already been taken."
 msgstr "Bu kullanıcı adı zaten alınmış."
 
-#: etiketle/users/models.py:11
+#: etiketle/users/models.py:12
 msgid "Name of User"
 msgstr "Kullanıcının İsmi"
 

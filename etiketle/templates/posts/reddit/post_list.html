@@ -1,20 +1,21 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-  <h2>Posts in Dataset {{dataset}}</h2>
+  <h2>{% blocktrans %}Posts in Dataset {{dataset}}{% endblocktrans %}</h2>
   <hr/>
   <p>
-  <a href="{{ dataset.file.url }}" class="btn btn-success">Download Original (CSV)</a>
-  <a href='{% url "datasets:export-posts" dataset.pk %}' class="btn btn-success">Export Posts (CSV)</a>
-  <a href="{% url "datasets:export-annotations" dataset.pk %}" class="btn btn-success">Export Annotations (JSON)</a>
+  <a href="{{ dataset.file.url }}" class="btn btn-success">{% blocktrans %}Download Original (CSV){% endblocktrans %}</a>
+  <a href='{% url "datasets:export-posts" dataset.pk %}' class="btn btn-success">{% blocktrans %}Export Posts (CSV){% endblocktrans %}</a>
+  <a href="{% url "datasets:export-annotations" dataset.pk %}" class="btn btn-success">{% blocktrans %}Export Annotations (JSON){% endblocktrans %}</a>
   </p>
   <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Status</th>
-      <th scope="col">Reddit ID</th>
-      <th scope="col">Title</th>
+      <th scope="col">{% trans "Status" %}</th>
+      <th scope="col">{% blocktrans %}Reddit ID{% endblocktrans %}</th>
+      <th scope="col">{% trans "Title" %}</th>
     </tr>
   </thead>
   <tbody>

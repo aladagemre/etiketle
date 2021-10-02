@@ -1,20 +1,21 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block content %}
   <ul>
-    <li><label>Team:</label><a href="{{ object.team.get_absolute_url }}">{{ object.team.name }}</a></li>
-    <li><label>Name:</label><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></li>
-    <li><label>Created By:</label><a href="{{ object.created_by.get_absolute_url }}">{{ object.created_by.username }}</a></li>
-    <li><label>Members:</label>
+    <li><label>{% trans "Team" %}:</label><a href="{{ object.team.get_absolute_url }}">{{ object.team.name }}</a></li>
+    <li><label>{% trans "Name" %}:</label><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></li>
+    <li><label>{% blocktrans %}Created By{% endblocktrans %}:</label><a href="{{ object.created_by.get_absolute_url }}">{{ object.created_by.username }}</a></li>
+    <li><label>{% trans "Members" %}:</label>
       <ul>
         {% for member in object.members.all %}
           <li><a href="{{ member.get_absolute_url }}">{{ member.username }}</a></li>
         {% endfor %}
       </ul>
     </li>
-      <li><label>Datasets:</label>
+      <li><label>{% trans "Datasets" %}:</label>
       <ul>
         {% for dataset in object.datasets.all %}
-          <li><a href="{{ dataset.get_absolute_url }}">{{ dataset.name }}</a> | >> <a href="{% url 'datasets:list-posts' dataset.pk %}">See Posts</a></li>
+          <li><a href="{{ dataset.get_absolute_url }}">{{ dataset.name }}</a> | >> <a href="{% url 'datasets:list-posts' dataset.pk %}">{% blocktrans %}See Posts{% endblocktrans %}</a></li>
         {% endfor %}
       </ul>
     </li>
