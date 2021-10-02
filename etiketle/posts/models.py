@@ -64,8 +64,9 @@ class RedditPost(models.Model):
 class Confidence(models.IntegerChoices):
     NOT_CONFIDENT = 0, "Not confident at all"
     SOMEHOW_CONFIDENT = 1, "Somehow confident"
-    VERY_CONFIDENT = 4, "Very confident"
-    ABSOLUTELY_SURE = 5, "Absolutely sure"
+    CONFIDENT = 2, "Confident"
+    VERY_CONFIDENT = 3, "Very confident"
+    ABSOLUTELY_SURE = 4, "Absolutely sure"
 
 
 class RedditPostAnnotation(TimeStampedModel):
