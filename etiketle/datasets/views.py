@@ -195,3 +195,26 @@ def export_annotations(request, pk):
         "Content-Disposition"
     ] = f'attachment; filename="dataset{pk}-annotations.json"'
     return response
+
+
+def dataset_annotation_statistics(request, pk: int):
+    """Displays statistics about the dataset annotation"""
+    dataset = Dataset.objects.get(pk=pk)
+    annotation_counts = dict(
+        [
+            (
+                member,
+                RedditPostAnnotation.objects.filter(post__dataset_id=dataset.pk)
+                .filter(user_id=member.pk)
+                .count(),
+            )
+            for member in dataset.project.members.all()
+        ]
+    )
+
+    data = dict(
+        dataset=dataset,
+        annotation_counts=annotation_counts,
+    )
+
+    return render(request, "datasets/dataset_statistics.html", context=data)

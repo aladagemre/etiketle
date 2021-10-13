@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Dataset Statistics</h2>
+  <h3>{{ dataset }}</h3>
+  <h4>Annotation Counts</h4>
+  <ul>
+  {% for member, count in annotation_counts.items %}
+    <li><a href="{{ member.get_absolute_url }}">{{ member.name }}</a>: <span>{{ count }}</span></li>
+  {% endfor %}
+  </ul>
+{% endblock %}

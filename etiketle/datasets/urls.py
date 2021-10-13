@@ -2,6 +2,7 @@
 from django.urls import path
 
 from . import views
+from .views import dataset_annotation_statistics
 
 app_name = "datasets"
 
@@ -26,6 +27,11 @@ urlpatterns = [
         route="<int:pk>/posts/",
         view=views.RedditPostListView.as_view(),
         name="list-posts",
+    ),
+    path(
+        route="<int:pk>/statistics/",
+        view=dataset_annotation_statistics,
+        name="dataset-statistics",
     ),
     path(
         route="<int:pk>/export/posts",
