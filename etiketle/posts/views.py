@@ -46,7 +46,9 @@ def reddit_post_detail_view(request, pk):
     annotation_config = post.dataset.annotation_config
     if request.method == "GET":
         try:
-            annotation = RedditPostAnnotation.objects.get(post_id=post.pk)
+            annotation = RedditPostAnnotation.objects.get(
+                post_id=post.pk, user=request.user
+            )
             form = RedditPostAnnotationForm(
                 annotation_config=annotation_config, instance=annotation
             )
