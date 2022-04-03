@@ -11,11 +11,7 @@ from django.urls import reverse
 from etiketle.users.forms import UserChangeForm
 from etiketle.users.models import User
 from etiketle.users.tests.factories import UserFactory
-from etiketle.users.views import (
-    UserRedirectView,
-    UserUpdateView,
-    user_detail_view,
-)
+from etiketle.users.views import UserRedirectView, UserUpdateView, user_detail_view
 
 pytestmark = pytest.mark.django_db
 
