@@ -69,7 +69,7 @@ jobs:
           DATABASE_URL: "postgres://etiketle:etiketle@localhost:5432/etiketle"
           DJANGO_SETTINGS_MODULE: config.settings.test
         run: |
-          python -m pytest --cov=etiketle --cov-report=xml
+          python -m pytest
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
