@@ -2,13 +2,7 @@ from typing import Optional
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
-from django.views.generic import (
-    CreateView,
-    DeleteView,
-    DetailView,
-    ListView,
-    UpdateView,
-)
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from etiketle.core.mixins import OnlyAdminsMixin
 from etiketle.projects.forms import ProjectForm
@@ -43,9 +37,7 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["form"].fields["team"].queryset = Team.objects.filter(
-            members__id=self.request.user.id
-        )
+        context["form"].fields["team"].queryset = Team.objects.filter(members__id=self.request.user.id)
         return context
 
 

@@ -14,15 +14,9 @@ class Dataset(TimeStampedModel):
 
     name = models.CharField(max_length=50)
     file = models.FileField()
-    source = models.CharField(
-        choices=Source.choices, max_length=50, default=Source.REDDIT_POST
-    )
-    created_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="uploader"
-    )
-    project = models.ForeignKey(
-        Project, on_delete=models.CASCADE, related_name="datasets"
-    )
+    source = models.CharField(choices=Source.choices, max_length=50, default=Source.REDDIT_POST)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="uploader")
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="datasets")
     annotation_config = models.ForeignKey(
         "projects.AnnotationConfig", on_delete=models.CASCADE, related_name="datasets"
     )
@@ -32,7 +26,7 @@ class Dataset(TimeStampedModel):
         return f"Project {self.project.name}'s Dataset: {self.name}"
 
     def get_absolute_url(self):
-        return reverse("datasets:detail", kwargs=dict(pk=self.id))
+        return reverse("datasets:detail", kwargs={"pk": self.id})
 
     def import_file(self):
         if self.source == self.Source.REDDIT_POST:

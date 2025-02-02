@@ -7,13 +7,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
-from django.views.generic import (
-    CreateView,
-    DeleteView,
-    DetailView,
-    ListView,
-    UpdateView,
-)
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from etiketle.core.mixins import OnlyAdminsMixin
 from etiketle.datasets.forms import DatasetForm
@@ -59,9 +53,7 @@ class DatasetCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["form"].fields["project"].queryset = Project.objects.filter(
-            members__id=self.request.user.id
-        )
+        context["form"].fields["project"].queryset = Project.objects.filter(members__id=self.request.user.id)
         return context
 
 
@@ -84,9 +76,7 @@ class RedditPostListView(LoginRequiredMixin, View):
         dataset_pk = kwargs["pk"]
         dataset = Dataset.objects.get(pk=dataset_pk)
         posts = RedditPost.objects.filter(dataset_id=dataset_pk).order_by("id")
-        my_annotations = RedditPostAnnotation.objects.filter(
-            user=request.user
-        ).values_list("post_id", flat=True)
+        my_annotations = RedditPostAnnotation.objects.filter(user=request.user).values_list("post_id", flat=True)
         data = dict(object_list=posts, dataset=dataset, my_annotations=my_annotations)
         return render(request, self.template_name, data)
 
@@ -104,12 +94,7 @@ class RedditPostListTeamView(LoginRequiredMixin, View):
             [
                 (
                     team_member.pk,
-                    [
-                        an.post_id
-                        for an in RedditPostAnnotation.objects.filter(
-                            user=team_member, post__in=posts
-                        )
-                    ],
+                    [an.post_id for an in RedditPostAnnotation.objects.filter(user=team_member, post__in=posts)],
                 )
                 for team_member in team_members
             ]
@@ -121,9 +106,7 @@ class RedditPostListTeamView(LoginRequiredMixin, View):
             for post_id in post_ids:
                 annotations_dict[post_id] += [user_id]
 
-        data = dict(
-            object_list=posts, dataset=dataset, annotations_dict=annotations_dict
-        )
+        data = dict(object_list=posts, dataset=dataset, annotations_dict=annotations_dict)
         return render(request, self.template_name, data)
 
 
@@ -177,9 +160,7 @@ def export_annotations(request, pk):
         reddit_id = annotation.post.data["id"]  # type: str
         annotation_dict[reddit_id] += [RedditPostAnnotationSerializer(annotation).data]
 
-    options_dict = dict(
-        [(option.pk, option.text) for option in dataset.annotation_config.options.all()]
-    )
+    options_dict = dict([(option.pk, option.text) for option in dataset.annotation_config.options.all()])
     confidence_dict = dict(Confidence.choices)
     result = {
         "dataset_id": dataset.pk,
@@ -191,9 +172,7 @@ def export_annotations(request, pk):
         return JsonResponse(result)
 
     response = JsonResponse(result, content_type="text/json")
-    response[
-        "Content-Disposition"
-    ] = f'attachment; filename="dataset{pk}-annotations.json"'
+    response["Content-Disposition"] = f'attachment; filename="dataset{pk}-annotations.json"'
     return response
 
 
@@ -204,9 +183,7 @@ def dataset_annotation_statistics(request, pk: int):
         [
             (
                 member,
-                RedditPostAnnotation.objects.filter(post__dataset_id=dataset.pk)
-                .filter(user_id=member.pk)
-                .count(),
+                RedditPostAnnotation.objects.filter(post__dataset_id=dataset.pk).filter(user_id=member.pk).count(),
             )
             for member in dataset.project.members.all()
         ]

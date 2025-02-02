@@ -12,9 +12,7 @@ class RedditPostForm(forms.ModelForm):
 
 
 class RedditPostAnnotationForm(forms.ModelForm):
-    options = forms.ModelMultipleChoiceField(
-        queryset=None, widget=forms.CheckboxSelectMultiple, required=False
-    )
+    options = forms.ModelMultipleChoiceField(queryset=None, widget=forms.CheckboxSelectMultiple, required=False)
 
     class Meta:
         model = RedditPostAnnotation
@@ -22,6 +20,4 @@ class RedditPostAnnotationForm(forms.ModelForm):
 
     def __init__(self, annotation_config, *args, **kwargs):
         super(RedditPostAnnotationForm, self).__init__(*args, **kwargs)
-        self.fields["options"].queryset = AnnotationOption.objects.filter(
-            config=annotation_config
-        )
+        self.fields["options"].queryset = AnnotationOption.objects.filter(config=annotation_config)

@@ -11,9 +11,7 @@ urlpatterns = [
     path("posts/", include("etiketle.posts.urls", namespace="posts")),
     path("projects/", include("etiketle.projects.urls", namespace="projects")),
     path("teams/", include("etiketle.teams.urls", namespace="teams")),
-    path(
-        "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
-    ),
+    path("about/", TemplateView.as_view(template_name="pages/about.html"), name="about"),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management

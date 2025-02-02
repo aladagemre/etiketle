@@ -21,9 +21,9 @@ class RedditPostImporter:
         with open(self.dataset.file.path) as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                created_at = datetime.datetime.strptime(
-                    row["created_utc"], "%Y-%m-%d %H:%M:%S"
-                ).replace(tzinfo=datetime.timezone.utc)
+                created_at = datetime.datetime.strptime(row["created_utc"], "%Y-%m-%d %H:%M:%S").replace(
+                    tzinfo=datetime.timezone.utc
+                )
                 post = RedditPost(
                     dataset=self.dataset,
                     created_at=created_at,

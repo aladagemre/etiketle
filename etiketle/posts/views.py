@@ -46,12 +46,8 @@ def reddit_post_detail_view(request, pk):
     annotation_config = post.dataset.annotation_config
     if request.method == "GET":
         try:
-            annotation = RedditPostAnnotation.objects.get(
-                post_id=post.pk, user=request.user
-            )
-            form = RedditPostAnnotationForm(
-                annotation_config=annotation_config, instance=annotation
-            )
+            annotation = RedditPostAnnotation.objects.get(post_id=post.pk, user=request.user)
+            form = RedditPostAnnotationForm(annotation_config=annotation_config, instance=annotation)
         except RedditPostAnnotation.DoesNotExist:
             form = RedditPostAnnotationForm(annotation_config=annotation_config)
 
@@ -60,9 +56,7 @@ def reddit_post_detail_view(request, pk):
     elif request.method == "POST":
         try:
             annotation = RedditPostAnnotation.objects.get(user=request.user, post=post)
-            form = RedditPostAnnotationForm(
-                annotation_config, request.POST, instance=annotation
-            )
+            form = RedditPostAnnotationForm(annotation_config, request.POST, instance=annotation)
         except RedditPostAnnotation.DoesNotExist:
             form = RedditPostAnnotationForm(annotation_config, request.POST)
 
