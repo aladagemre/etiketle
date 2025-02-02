@@ -20,6 +20,35 @@ Moved to settings_.
 Basic Commands
 --------------
 
+  $ brew install postgresql
+  $ python3 -m venv .venv
+  $ source .venv/bin/activate
+  $ pip install -r requirements/local.txt
+
+  $ psql postgres
+
+    CREATE DATABASE etiketle;
+    CREATE USER etiketle WITH PASSWORD 'etiketle';
+    ALTER ROLE etiketle SET client_encoding TO 'utf8';
+    ALTER ROLE etiketle SET default_transaction_isolation TO 'read committed';
+    ALTER ROLE etiketle SET timezone TO 'UTC';
+    GRANT ALL PRIVILEGES ON DATABASE etiketle TO etiketle;
+
+  $ python manage.py migrate
+  $ python manage.py createsuperuser
+  $ python manage.py runserver
+
+
+* Navigate to https://localhost:8000/admin/
+* Login with the superuser you created
+* Create a new team
+* Create a new project
+* Create users if needed.
+* Create a annotation config.
+* Create annotation options
+* Create a new dataset and upload a CSV file.
+
+
 Setting Up Your Users
 ^^^^^^^^^^^^^^^^^^^^^
 

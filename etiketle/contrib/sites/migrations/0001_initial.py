@@ -13,11 +13,11 @@ class Migration(migrations.Migration):
             fields=[
                 (
                     "id",
-                    models.AutoField(
-                        verbose_name="ID",
-                        serialize=False,
+                    models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
                     ),
                 ),
                 (

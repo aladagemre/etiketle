@@ -31,20 +31,33 @@ SITE_ID = 1
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
 USE_I18N = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-l10n
-USE_L10N = True
+USE_L10N = False
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
 LOCALE_PATHS = [str(ROOT_DIR / "locale")]
+
+# Django 5.1 specific settings
+THOUSAND_SEPARATOR = ','
+USE_THOUSAND_SEPARATOR = True
 
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 DATABASES = {
-    "default": env.db("DATABASE_URL", default="postgres:///etiketle"),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "etiketle",
+        "USER": "etiketle",
+        "PASSWORD": "etiketle",
+        "HOST": "localhost",
+        "PORT": "5432",
+    }
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
+# Add new Django 5.1 setting for DB connections
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # URLS
 # ------------------------------------------------------------------------------
@@ -68,6 +81,7 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
+    "crispy_bootstrap5",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -76,11 +90,11 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "etiketle.users.apps.UsersConfig",
-    "etiketle.core",
-    "etiketle.datasets",
-    "etiketle.posts",
-    "etiketle.projects",
-    "etiketle.teams",
+    "etiketle.core.apps.CoreConfig",
+    "etiketle.datasets.apps.DatasetsConfig",
+    "etiketle.posts.apps.PostsConfig",
+    "etiketle.projects.apps.ProjectsConfig",
+    "etiketle.teams.apps.TeamsConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -139,6 +153,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 # STATIC
@@ -198,7 +213,7 @@ TEMPLATES = [
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 # http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # FIXTURES
 # ------------------------------------------------------------------------------
