@@ -33,6 +33,7 @@ Basic Commands
     ALTER ROLE etiketle SET default_transaction_isolation TO 'read committed';
     ALTER ROLE etiketle SET timezone TO 'UTC';
     GRANT ALL PRIVILEGES ON DATABASE etiketle TO etiketle;
+    ALTER USER etiketle CREATEDB;
 
   $ python manage.py migrate
   $ python manage.py createsuperuser

@@ -43,6 +43,7 @@ jobs:
           POSTGRES_DB: etiketle
           POSTGRES_USER: etiketle
           POSTGRES_PASSWORD: etiketle
+          POSTGRES_HOST_AUTH_METHOD: trust
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -58,6 +59,12 @@ jobs:
         with:
           python-version: "3.12"
           cache: 'pip'
+
+      - name: Setup Database
+        run: |
+          psql -h localhost -U etiketle -d etiketle -c "ALTER USER etiketle CREATEDB;"
+        env:
+          PGPASSWORD: etiketle
 
       - name: Install Dependencies
         run: |
