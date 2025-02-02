@@ -4,32 +4,40 @@ fail_fast: true
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.5.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
+      - id: check-json
+      - id: check-added-large-files
+      - id: debug-statements
 
   - repo: https://github.com/psf/black
-    rev: 22.3.0
+    rev: 24.2.0
     hooks:
       - id: black
+        args: ["--line-length", "120"]
 
-  - repo: https://github.com/timothycrosley/isort
-    rev: 5.9.1
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
     hooks:
       - id: isort
+        args: ["--profile", "black", "--line-length", "120"]
 
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.9.2
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
     hooks:
       - id: flake8
         args: ['--config=setup.cfg']
-        additional_dependencies: [flake8-isort]
-
+        additional_dependencies: [
+            'flake8-isort',
+            'flake8-django',
+            'flake8-docstrings',
+        ]
 
 # sets up .pre-commit-ci.yaml to ensure pre-commit dependencies stay up to date
 ci:
-    autoupdate_schedule: weekly
+    autoupdate_schedule: monthly
     skip: []
     submodules: false
